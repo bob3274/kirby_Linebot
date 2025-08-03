@@ -28,9 +28,10 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     i = event.message.text.strip()
-
     if len(i) != 10:
         reply = "請輸入剛好10個字元的字串。"
+    if not i[0:8].isdigit():
+        reply = "前8位必須為數字。"
     else:
         try:
             a = int(int(i[0:4]) * 7 / 2 + 94 / 3)  # 4位亂數
@@ -46,5 +47,6 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=reply)
     )
+
 
 
